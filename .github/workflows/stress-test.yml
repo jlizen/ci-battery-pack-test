@@ -1,0 +1,27 @@
+
+name: Stress Test
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+    inputs:
+      duration_minutes:
+        description: "Stress test duration in minutes"
+        default: "60"
+
+permissions:
+  contents: read
+
+jobs:
+  stress-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
+      - uses: taiki-e/install-action@055f5df8c3f65ea01cd41e9dc855becd88953486 # v2.75.18
+        with:
+          tool: nextest
+      - run: cargo nextest run --all-features --stress-duration '${{ inputs.duration_minutes || '60' }}m'
