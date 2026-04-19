@@ -1,5 +1,5 @@
 use ci_battery_pack_test::add;
-use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion};
+use criterion::{BenchmarkId, Criterion, criterion_group, criterion_main};
 use std::hint::black_box;
 
 fn bench_add(c: &mut Criterion) {
