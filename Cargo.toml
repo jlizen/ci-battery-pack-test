@@ -1,0 +1,19 @@
+[package]
+name = "ci-battery-pack-test"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.91.1"
+description = "asdf"
+license = "MIT OR Apache-2.0"
+
+
+[workspace]
+members = [".", "xtask"]
+
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+
+[[bench]]
+name = "example_bench"
+harness = false
