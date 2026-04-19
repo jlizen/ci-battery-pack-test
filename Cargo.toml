@@ -1,6 +1,6 @@
 [package]
 name = "ci-battery-pack-test"
-version = "0.4.3"
+version = "0.1.0"
 edition = "2024"
 rust-version = "1.91.1"
 description = "CI battery pack test"
@@ -25,6 +25,9 @@ harness = false
 [[bin]]
 name = "ci-battery-pack-test"
 path = "src/main.rs"
+
+[package.metadata.binstall]
+pkg-url = "{ repo }/releases/download/{ name }-v{ version }/{ name }-{ target }-v{ version }{ archive-suffix }"
 
 
 [package.metadata.battery-pack]
