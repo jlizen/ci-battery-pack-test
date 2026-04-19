@@ -1,0 +1,7 @@
+
+[book]
+title = "ci-battery-pack-test"
+language = "en"
+src = "md"
+
+[output.html]

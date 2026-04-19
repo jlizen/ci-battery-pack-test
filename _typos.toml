@@ -1,0 +1,6 @@
+
+# https://github.com/crate-ci/typos
+[default.extend-words]
+
+[files]
+extend-exclude = ["*.lock"]

@@ -1,0 +1,37 @@
+
+name: Fuzz (nightly)
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+    inputs:
+      duration:
+        description: "Fuzz duration per target in seconds"
+        default: "300"
+
+permissions:
+  contents: read
+
+jobs:
+  fuzz-nightly:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - uses: dtolnay/rust-toolchain@5b842231ba77f5c045dba54ac5560fed2db780e2 # nightly
+      - uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
+        with:
+          workspaces: fuzz -> target
+      - uses: dtolnay/install@d0dc46e85ffd2c174b5ac0489e17f95dae84fa5a # cargo-fuzz
+      - name: Extended fuzz run
+        run: |
+          duration=${{ inputs.duration || '300' }}
+          for target in $(cargo fuzz list); do
+            cargo fuzz run "$target" -- -max_total_time="$duration"
+          done
+      - name: Upload crash artifacts
+        if: failure()
+        uses: actions/upload-artifact@could-not-resolve-git-sha-for-v4 # not prefetched
+        with:
+          name: fuzz-crashes
+          path: fuzz/artifacts/
