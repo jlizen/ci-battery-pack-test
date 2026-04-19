@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.6](https://github.com/jlizen/ci-battery-pack-test/compare/ci-battery-pack-test-v0.1.5...ci-battery-pack-test-v0.1.6) - 2026-04-19
+
+### Other
+
+- update Cargo.lock dependencies
+
 ## [0.1.5](https://github.com/jlizen/ci-battery-pack-test/compare/ci-battery-pack-test-v0.1.4...ci-battery-pack-test-v0.1.5) - 2026-04-19
 
 ### Other
