@@ -4,7 +4,7 @@
 [![crates.io](https://img.shields.io/crates/v/ci-battery-pack-test.svg)](https://crates.io/crates/ci-battery-pack-test)
 [![docs.rs](https://docs.rs/ci-battery-pack-test/badge.svg)](https://docs.rs/ci-battery-pack-test)
 
-CI battery pack test
+CI battery pack test.
 
 ## License
 
