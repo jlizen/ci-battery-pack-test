@@ -1,0 +1,21 @@
+[package]
+name = "ci_battery_pack_test-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+arbitrary = { version = "1", features = ["derive"] }
+ci-battery-pack-test = { path = ".." }
+
+[workspace]
+members = ["."]
+
+[[bin]]
+name = "fuzz_example"
+path = "fuzz_targets/fuzz_example.rs"
+doc = false
