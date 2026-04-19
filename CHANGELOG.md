@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1](https://github.com/jlizen/ci-battery-pack-test/compare/ci-battery-pack-test-v0.1.0...ci-battery-pack-test-v0.1.1) - 2026-04-19
+
+### Other
+
+- Fix release-pr to use GITHUB_TOKEN (break infinite loop)
+- release v0.1.8
+- release v0.1.7
+- release v0.1.5
+- release v0.1.5
+- update Cargo.lock
+- bump to 0.1.4
+- release v0.1.3
+- Regenerate with RELEASE_PLZ_TOKEN
+- release v0.1.2
+- release v0.1.1
+- Regenerate with binary-release
+
 ## [0.1.8](https://github.com/jlizen/ci-battery-pack-test/compare/ci-battery-pack-test-v0.1.7...ci-battery-pack-test-v0.1.8) - 2026-04-19
 
 ### Other
