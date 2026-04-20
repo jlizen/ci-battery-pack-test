@@ -1,4 +1,5 @@
 # Builds cross-platform binaries and uploads to GitHub Releases.
+# Binaries are discoverable by cargo-binstall (https://github.com/cargo-bins/cargo-binstall).
 # Triggered automatically when release-plz publishes a release.
 # workflow_dispatch lets you build binaries manually without a release.
 name: Build Binaries
@@ -43,6 +44,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: ${{ matrix.target }}
