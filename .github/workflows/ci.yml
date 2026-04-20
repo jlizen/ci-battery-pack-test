@@ -28,18 +28,6 @@ jobs:
         with:
           components: rustfmt
       - run: cargo fmt --all -- --check
-  # https://doc.rust-lang.org/clippy/
-  clippy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          persist-credentials: false
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          components: clippy
-      - uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
-      - run: cargo clippy --workspace --all-targets --all-features --keep-going -- -D warnings
   # Dedicated warnings check so test failures are visible even with warnings
   warnings:
     runs-on: ubuntu-latest
@@ -51,6 +39,9 @@ jobs:
           persist-credentials: false
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
+        with:
+          shared-key: stable
+          save-if: ${{ github.ref == 'refs/heads/main' }}
       - run: cargo check --all-targets --all-features --keep-going
   # Validate docs build with docsrs cfg on nightly
   docsrs:
@@ -63,6 +54,9 @@ jobs:
           persist-credentials: false
       - uses: dtolnay/rust-toolchain@nightly
       - uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
+        with:
+          shared-key: nightly
+          save-if: ${{ github.ref == 'refs/heads/main' }}
       - run: cargo doc --no-deps --all-features
   build:
     strategy:
@@ -88,6 +82,9 @@ jobs:
           persist-credentials: false
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
+        with:
+          shared-key: stable
+          save-if: ${{ github.ref == 'refs/heads/main' }}
       - uses: taiki-e/install-action@055f5df8c3f65ea01cd41e9dc855becd88953486 # v2.75.18
         with:
           tool: cargo-hack
@@ -101,6 +98,9 @@ jobs:
           persist-credentials: false
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
+        with:
+          shared-key: msrv
+          save-if: ${{ github.ref == 'refs/heads/main' }}
       - uses: taiki-e/install-action@055f5df8c3f65ea01cd41e9dc855becd88953486 # v2.75.18
         with:
           tool: cargo-hack
@@ -145,6 +145,9 @@ jobs:
           persist-credentials: false
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
+        with:
+          shared-key: stable
+          save-if: ${{ github.ref == 'refs/heads/main' }}
       - uses: bencherdev/bencher@0f8f620172ccd6225d40a7590598eb7b41718af8 # v0.6.2
       - run: |
           bencher run \
@@ -164,6 +167,9 @@ jobs:
           persist-credentials: false
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
+        with:
+          shared-key: stable
+          save-if: ${{ github.ref == 'refs/heads/main' }}
       - uses: bencherdev/bencher@0f8f620172ccd6225d40a7590598eb7b41718af8 # v0.6.2
       - run: |
           bencher run \
@@ -186,6 +192,8 @@ jobs:
       - uses: dtolnay/rust-toolchain@nightly
       - uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
         with:
+          shared-key: nightly
+          save-if: ${{ github.ref == 'refs/heads/main' }}
           workspaces: fuzz -> target
       - uses: dtolnay/install@cargo-fuzz
       - name: Smoke test fuzz targets (60s each)
@@ -202,6 +210,9 @@ jobs:
           persist-credentials: false
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
+        with:
+          shared-key: stable
+          save-if: ${{ github.ref == 'refs/heads/main' }}
       - uses: taiki-e/install-action@055f5df8c3f65ea01cd41e9dc855becd88953486 # v2.75.18
         with:
           tool: nextest
@@ -225,6 +236,9 @@ jobs:
           persist-credentials: false
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
+        with:
+          shared-key: stable
+          save-if: ${{ github.ref == 'refs/heads/main' }}
       - run: cargo xtask codegen --check
   # cargo-mutants: find code not covered by tests (https://mutants.rs/)
   mutants:
@@ -235,6 +249,9 @@ jobs:
           persist-credentials: false
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
+        with:
+          shared-key: stable
+          save-if: ${{ github.ref == 'refs/heads/main' }}
       - uses: taiki-e/install-action@055f5df8c3f65ea01cd41e9dc855becd88953486 # v2.75.18
         with:
           tool: cargo-mutants
@@ -258,6 +275,9 @@ jobs:
         with:
           components: clippy
       - uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
+        with:
+          shared-key: stable
+          save-if: ${{ github.ref == 'refs/heads/main' }}
       - run: cargo install clippy-sarif --locked
       - run: cargo install sarif-fmt --locked
       - name: Run clippy with SARIF output
@@ -271,7 +291,7 @@ jobs:
           sarif_file: clippy-results.sarif
           wait-for-processing: true
   ci-pass:
-    needs: [fmt, clippy, warnings, docsrs, build, features, msrv, lockfile, minimal-versions, semver, bench, bench-pr, fuzz-smoke, stress-test, spellcheck, xtask, mutants, clippy-sarif]
+    needs: [fmt, clippy-sarif, warnings, docsrs, build, features, msrv, lockfile, minimal-versions, semver, bench, bench-pr, fuzz-smoke, stress-test, spellcheck, xtask, mutants]
     if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     steps:

@@ -1,18 +1,11 @@
 # Builds cross-platform binaries and uploads to GitHub Releases.
 # Binaries are discoverable by cargo-binstall (https://github.com/cargo-bins/cargo-binstall).
 # Triggered automatically when release-plz publishes a release.
-# workflow_dispatch lets you build binaries manually without a release.
 name: Build Binaries
 
 on:
   release:
     types: [published]
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: "Release tag (e.g., v0.1.0)"
-        required: true
-        type: string
 
 permissions:
   contents: write
@@ -55,11 +48,7 @@ jobs:
         id: version
         shell: bash
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            TAG="${{ inputs.tag }}"
-          else
-            TAG="${{ github.event.release.tag_name }}"
-          fi
+          TAG="${{ github.event.release.tag_name }}"
           # Strip package name prefix (e.g. "my-crate-v0.1.0" -> "v0.1.0")
           VERSION="${TAG##*-v}"
           echo "version=v${VERSION}" >> "$GITHUB_OUTPUT"
@@ -79,14 +68,6 @@ jobs:
           Compress-Archive -Path ci-battery-pack-test.exe -DestinationPath ../../../ci-battery-pack-test-${{ matrix.target }}-${{ steps.version.outputs.version }}.zip
 
       - name: Upload release asset
-        if: ${{ github.event_name == 'release' }}
         uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2
         with:
           files: ci-battery-pack-test-${{ matrix.target }}-${{ steps.version.outputs.version }}.${{ matrix.archive }}
-
-      - name: Upload artifact
-        if: ${{ github.event_name == 'workflow_dispatch' }}
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
-        with:
-          name: ci-battery-pack-test-${{ matrix.target }}
-          path: ci-battery-pack-test-${{ matrix.target }}-${{ steps.version.outputs.version }}.${{ matrix.archive }}

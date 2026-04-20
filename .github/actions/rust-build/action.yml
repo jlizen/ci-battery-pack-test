@@ -18,6 +18,9 @@ runs:
         toolchain: ${{ inputs.toolchain }}
 
     - uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
+      with:
+        shared-key: ${{ inputs.toolchain }}
+        save-if: ${{ github.ref == 'refs/heads/main' }}
 
     - name: Build
       shell: bash
