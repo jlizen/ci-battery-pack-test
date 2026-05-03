@@ -27,7 +27,7 @@ jobs:
         with:
           shared-key: stable
           save-if: ${{ github.ref == 'refs/heads/main' }}
-      - uses: taiki-e/install-action@055f5df8c3f65ea01cd41e9dc855becd88953486 # v2.75.18
+      - uses: taiki-e/install-action@b5fddbb5361bce8a06fb168c9d403a6cc552b084 # v2.75.29
         with:
           tool: nextest
       - run: cargo nextest run --all-features --stress-duration '${{ inputs.duration_minutes || '60' }}m'

@@ -85,7 +85,7 @@ jobs:
         with:
           shared-key: stable
           save-if: ${{ github.ref == 'refs/heads/main' }}
-      - uses: taiki-e/install-action@055f5df8c3f65ea01cd41e9dc855becd88953486 # v2.75.18
+      - uses: taiki-e/install-action@b5fddbb5361bce8a06fb168c9d403a6cc552b084 # v2.75.29
         with:
           tool: cargo-hack
       - run: cargo hack check --feature-powerset --depth 2 --no-dev-deps
@@ -101,7 +101,7 @@ jobs:
         with:
           shared-key: msrv
           save-if: ${{ github.ref == 'refs/heads/main' }}
-      - uses: taiki-e/install-action@055f5df8c3f65ea01cd41e9dc855becd88953486 # v2.75.18
+      - uses: taiki-e/install-action@b5fddbb5361bce8a06fb168c9d403a6cc552b084 # v2.75.29
         with:
           tool: cargo-hack
       - run: cargo hack check --rust-version --workspace --all-targets --ignore-private --locked
@@ -213,7 +213,7 @@ jobs:
         with:
           shared-key: stable
           save-if: ${{ github.ref == 'refs/heads/main' }}
-      - uses: taiki-e/install-action@055f5df8c3f65ea01cd41e9dc855becd88953486 # v2.75.18
+      - uses: taiki-e/install-action@b5fddbb5361bce8a06fb168c9d403a6cc552b084 # v2.75.29
         with:
           tool: nextest
       # nextest is used here for --stress-duration (not available in cargo test)
@@ -252,7 +252,7 @@ jobs:
         with:
           shared-key: stable
           save-if: ${{ github.ref == 'refs/heads/main' }}
-      - uses: taiki-e/install-action@055f5df8c3f65ea01cd41e9dc855becd88953486 # v2.75.18
+      - uses: taiki-e/install-action@b5fddbb5361bce8a06fb168c9d403a6cc552b084 # v2.75.29
         with:
           tool: cargo-mutants
       - run: cargo mutants --no-shuffle -vV
